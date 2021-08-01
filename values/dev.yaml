@@ -1,0 +1,122 @@
+# Default values for dkron.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: registry.gitlab.com/daisyproject/platform/workflows/dkron-executor-daisy-cron-starter
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+  pullSecretName: gitlab-registry-cred
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+server:
+  replicaCount: 1
+
+  log:
+    level: "info"
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    type: ClusterIP
+    port: 80
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  persistence:
+    storageClass: "standard"
+    size: 1Gi
+
+agent:
+  replicaCount: 1
+
+  log:
+    level: "info"
+
+  deploymentAnnotations:
+    sidecar.jaegertracing.io/inject: "true"
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 100
+    targetCPUUtilizationPercentage: 80
+    # targetMemoryUtilizationPercentage: 80
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+envs:
+  TEMPORAL_HOST: temporal-frontend-headless:7233
+  LOG_LEVEL: debug
