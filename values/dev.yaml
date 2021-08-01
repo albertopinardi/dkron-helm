@@ -6,7 +6,7 @@ image:
   repository: registry.gitlab.com/daisyproject/platform/workflows/dkron-executor-daisy-cron-starter
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.1.2
+  tag: v0.1.8
   pullSecretName: gitlab-registry-cred
 
 imagePullSecrets: []
