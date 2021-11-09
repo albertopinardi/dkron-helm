@@ -3,11 +3,11 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: registry.gitlab.com/daisyproject/platform/workflows/dkron-executor-daisy-cron-starter
+  repository: dkron/dkron
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.1.8
-  pullSecretName: gitlab-registry-cred
+  tag: ""
+  pullSecretName: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -78,8 +78,7 @@ agent:
   log:
     level: "info"
 
-  deploymentAnnotations:
-    sidecar.jaegertracing.io/inject: "true"
+  deploymentAnnotations: {}
 
   podAnnotations: {}
 
@@ -118,5 +117,4 @@ agent:
   affinity: {}
 
 envs:
-  TEMPORAL_HOST: temporal-frontend-headless:7233
   LOG_LEVEL: debug
